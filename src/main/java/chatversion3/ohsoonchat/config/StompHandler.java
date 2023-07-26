@@ -66,8 +66,6 @@ public class StompHandler implements ChannelInterceptor {
 
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
 
-
-
         // 최초 소켓 연결
 //        if (StompCommand.CONNECT == accessor.getCommand()) {
 //
@@ -122,10 +120,16 @@ public class StompHandler implements ChannelInterceptor {
         if (StompCommand.CONNECT == accessor.getCommand()) {
 
             String token = jwtTokenProvider.resolveTokenWeb(accessor);
-            jwtTokenProvider.getAuthentication(token);
-            Long currentUserId = SecurityUtils.getCurrentUserId();
 
-            log.info("currentUserId={}",currentUserId);
+            log.info("token={}",token);
+
+            // jwtTokenProvider.getAuthentication(token);
+            //Long currentUserId = SecurityUtils.getCurrentUserId();
+
+            jwtTokenProvider.getJws(token);
+            String userId = jwtTokenProvider.getUserId(token);
+
+            log.info("userId={}",userId);
 
 
             //String headerToken = accessor.getFirstNativeHeader(TOKEN);

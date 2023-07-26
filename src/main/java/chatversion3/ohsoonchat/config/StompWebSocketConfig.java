@@ -1,5 +1,6 @@
 package chatversion3.ohsoonchat.config;
 
+import chatversion3.ohsoonchat.error.exception.StompExceptionHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
@@ -15,6 +16,8 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     private final StompHandler stompHandler;
 
+    private final StompExceptionHandler stompExceptionHandler;
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
 
@@ -24,7 +27,10 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/stomp/chat").setAllowedOriginPatterns("*");
+        registry
+                .setErrorHandler(stompExceptionHandler)
+                .addEndpoint("/stomp/chat")
+                .setAllowedOriginPatterns("*");
         //.withSockJS()
     }
 

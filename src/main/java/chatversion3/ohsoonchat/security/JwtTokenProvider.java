@@ -31,10 +31,8 @@ public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
     private final String ACCESS_TOKEN = "access_token";
     private final String REFRESH_TOKEN = "refresh_token";
-
     private final String ROLE = "role";
     private final String TYPE = "type";
-
     private final String ISSUER = "knockknock";
 
     public String resolveTokenWeb(StompHeaderAccessor accessor) {
@@ -69,7 +67,7 @@ public class JwtTokenProvider {
                 userDetails, "", userDetails.getAuthorities());
     }
 
-    private Jws<Claims> getJws(String token) {
+    public Jws<Claims> getJws(String token) {
         try {
             return Jwts.parserBuilder().setSigningKey(getSecretKey()).build().parseClaimsJws(token);
         } catch (ExpiredJwtException e) {
@@ -79,9 +77,14 @@ public class JwtTokenProvider {
         }
     }
 
+    public String getUserId(String token){
+        return getJws(token).getBody().getSubject();
+    }
+
     private Key getSecretKey() {
         return Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes(StandardCharsets.UTF_8));
     }
+
 
     private String buildAccessToken(
             Long id, Date issuedAt, Date accessTokenExpiresIn, AccountRole accountRole) {
