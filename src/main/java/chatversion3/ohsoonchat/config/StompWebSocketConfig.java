@@ -30,6 +30,7 @@ public class StompWebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry
                 .setErrorHandler(stompExceptionHandler)
                 .addEndpoint("/stomp/chat")
+                .addInterceptors()
                 .setAllowedOriginPatterns("*");
         //.withSockJS()
     }

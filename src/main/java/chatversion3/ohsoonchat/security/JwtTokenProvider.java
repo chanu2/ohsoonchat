@@ -7,10 +7,7 @@ import chatversion3.ohsoonchat.exception.InvalidTokenException;
 import chatversion3.ohsoonchat.exception.RefreshTokenExpiredException;
 import chatversion3.ohsoonchat.property.JwtProperties;
 import chatversion3.ohsoonchat.security.auth.AuthDetails;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -76,6 +73,23 @@ public class JwtTokenProvider {
             throw InvalidTokenException.EXCEPTION;
         }
     }
+
+
+    public void validateToken(final String token) {
+        try {
+           Jwts.parserBuilder().setSigningKey(getSecretKey()).build().parseClaimsJws(token);
+        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+            throw InvalidTokenException.EXCEPTION;
+        } catch (ExpiredJwtException e) {
+            throw ExpiredTokenException.EXCEPTION;
+        } catch (UnsupportedJwtException e) {
+            throw InvalidTokenException.EXCEPTION;
+        } catch (IllegalArgumentException e) {
+            throw InvalidTokenException.EXCEPTION;
+        }
+    }
+
+
 
     public String getUserId(String token){
         return getJws(token).getBody().getSubject();
