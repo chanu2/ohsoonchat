@@ -65,7 +65,7 @@ public class InitDb {
             em.persist(participation);
             em.persist(participation2);
 
-            //chatRoomRepository.enterChatRoom(String.valueOf(reservation.getId()),"asdwdanhbvd","김찬우");
+            chatRoomRepository.enterChatRoom(String.valueOf(reservation.getId()),"asdwdanhbvd","김찬우");
 
             String session = chatRoomRepository.getOpsHashEnterRoom().get("CHAT_ROOM_ID_1","asdwdanhbvd");
 
