@@ -18,6 +18,8 @@ import static jakarta.persistence.FetchType.LAZY;
 @Table(name = "chats")
 public class Chat implements Serializable {
 
+    // TODO: 2023/07/30  예외추가
+
     private static final long serialVersionUID = 5090380600159441769L;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
