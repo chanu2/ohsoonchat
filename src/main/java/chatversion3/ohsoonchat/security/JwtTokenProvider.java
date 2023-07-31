@@ -75,6 +75,7 @@ public class JwtTokenProvider {
     }
 
 
+    // 웹소켓에서 토큰 인증 기능
     public void validateToken(final String token) {
         try {
            Jwts.parserBuilder().setSigningKey(getSecretKey()).build().parseClaimsJws(token);
