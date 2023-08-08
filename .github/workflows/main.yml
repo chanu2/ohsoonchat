@@ -5,8 +5,8 @@ on:
   
 jobs:
   Cypress-Test:
-   
-  
+
+
     name: Build Docker Image
     runs-on: ubuntu-latest  
     steps:  
@@ -32,6 +32,6 @@ jobs:
             ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPO }}
             IMAGE_TAG: latest
           run: |
-            docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+            docker buildx build --platform=linux/amd64 -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
             docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
        
