@@ -1,6 +1,7 @@
 on:
+  workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
 
 name: Spring Project `module1` CI on ECR
 
