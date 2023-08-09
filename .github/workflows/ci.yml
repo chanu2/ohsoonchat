@@ -19,14 +19,6 @@ jobs:
           java-version: 17
           distribution: 'temurin'
 
-      - name: Setup MySQL
-        uses: getong/mariadb-action@v1.1
-        with:
-          character set server: utf8
-          mysql database: chatDB
-          mysql user: root
-          mysql password: 1234
-
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
