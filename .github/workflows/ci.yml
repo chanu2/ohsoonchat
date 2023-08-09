@@ -16,23 +16,7 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v1
         with:
-          java-version:
-
-
-      - name: Make application.properties
-        run: |
-          cd ./src/main/resources
-          touch ./application.yml
-          echo "jdbc:mariadb://localhost:3306/chatDB" >> ./application.yml
-         
-
-      - name: Setup MySQL
-        uses: mirromutth/mariadb-action@v1.1
-        with:
-          mysql database: chatDB
-          mysql user: root
-          mysql password: 1234
-            
+          java-version: 17
 
       - name: Cache Gradle packages
         uses: actions/cache@v2
@@ -69,7 +53,6 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.AWS_ECR_REPO }}
           IMAGE_TAG: module1
         run: |
-          # Build a docker container and push it to ECR 
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./module1
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
