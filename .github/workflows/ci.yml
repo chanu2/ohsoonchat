@@ -19,8 +19,15 @@ jobs:
         with:
           java-version: 17
 
-      - name: Build with Gradle
-        run: ./gradlew clean build --exclude-task test
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
+      - name: Run build
+        run: ./gradlew build -x test
+
+#
+#      - name: Build with Gradle
+#        run: ./gradlew clean build --exclude-task test
 
 
       #      - name: Cache Gradle packages
