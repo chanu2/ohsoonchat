@@ -19,6 +19,10 @@ jobs:
         with:
           java-version: 17
 
+      - name: Build with Gradle
+        run: ./gradlew clean build --exclude-task test
+
+
       #      - name: Cache Gradle packages
 #        uses: actions/cache@v2
 #        with:
