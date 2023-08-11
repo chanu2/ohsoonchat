@@ -3,7 +3,7 @@ on:
   push:
     branches: [ main ]
 
-name: Spring Project `module1` CI on ECR
+name: Spring Project  CI on ECR
 
 jobs:
   deploy:
