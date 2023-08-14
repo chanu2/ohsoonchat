@@ -8,6 +8,7 @@ import chatversion3.ohsoonchat.pubsub.RedisPublisher;
 import chatversion3.ohsoonchat.repo.ParticipationRepository;
 import chatversion3.ohsoonchat.repo.ReservationRepository;
 import chatversion3.ohsoonchat.repo.UserRepository;
+import chatversion3.ohsoonchat.security.JwtTokenProvider;
 import chatversion3.ohsoonchat.service.ChatRedisCacheService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,7 @@ public class ChatController {
     private final UserRepository userRepository;
     private final ReservationRepository reservationRepository;
     private final ParticipationRepository participationRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
     // TODO: 2023/07/16 시큐리티 설정 추가
     //private final HeaderTokenExtractor headerTokenExtractor;

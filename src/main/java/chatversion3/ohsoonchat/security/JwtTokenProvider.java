@@ -32,14 +32,12 @@ public class JwtTokenProvider {
     private final String TYPE = "type";
     private final String ISSUER = "knockknock";
 
-    public String resolveTokenWeb(StompHeaderAccessor accessor) {
+    public String resolveTokenWeb(String token) {
 
-        String rawHeader = accessor.getFirstNativeHeader(jwtProperties.getHeader());
-
-        if (rawHeader != null
-                && rawHeader.length() > jwtProperties.getPrefix().length()
-                && rawHeader.startsWith(jwtProperties.getPrefix())) {
-            return rawHeader.substring(jwtProperties.getPrefix().length() + 1);
+        if (token != null
+                && token.length() > jwtProperties.getPrefix().length()
+                && token.startsWith(jwtProperties.getPrefix())) {
+            return token.substring(jwtProperties.getPrefix().length() + 1);
         }
         return null;
     }
