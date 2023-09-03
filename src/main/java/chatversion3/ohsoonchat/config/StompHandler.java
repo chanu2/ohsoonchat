@@ -81,52 +81,52 @@ public class StompHandler implements ChannelInterceptor {
 
 
             // TODO: 2023/08/14 웹소켓 테스트
-
-            String rawHeader = accessor.getFirstNativeHeader(jwtProperties.getHeader());
-
-            String token = jwtTokenProvider.resolveTokenWeb(rawHeader);
-
-            log.info("token={}",token);
-
-            jwtTokenProvider.validateToken(jwtTokenProvider.resolveTokenWeb(rawHeader));
-            String userId = jwtTokenProvider.getUserId(token);
-
-            log.info("userId={}",userId);
-
-            Member member = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> UserNotFoundException.EXCEPTION);
-
-            String roomId = accessor.getFirstNativeHeader(SIMP_DESTINATION);
-//            String destination = Optional.ofNullable(
-//                    (String) message.getHeaders().get(SIMP_DESTINATION)
-//            ).orElse(INVALID_ROOM_ID);
-
-            log.info("roomId={}",roomId);
-
-            String sessionId = Optional.ofNullable(
-                    (String) message.getHeaders().get(SIMP_SESSION_ID)
-            ).orElse(null);
-
-            log.info("sessionId={}",sessionId);
-
-            //String roomId = chatUtils.getRoodIdFromDestination(destination);
-
-
-
-            Reservation reservation = reservationRepository.findById(Long.valueOf(roomId)).orElseThrow(() -> UserNotFoundException.EXCEPTION);
-
-            if(!participationRepository.existsByReservationAndMember(reservation,member)) {
-                throw new RuntimeException("참여하지 않은 사람");
-            }
-
-            chatRoomService.enterChatRoom(roomId, sessionId, member.getName());
-
-            redisPublisher.publish(topic,
-                    ChatMessageSaveDto.builder()
-                            .type(ChatMessageSaveDto.MessageType.ENTER)
-                            .roomId(roomId)
-                            .userList(chatRoomService.findUser(roomId, sessionId))
-                            .build()
-            );
+//
+//            String rawHeader = accessor.getFirstNativeHeader(jwtProperties.getHeader());
+//
+//            String token = jwtTokenProvider.resolveTokenWeb(rawHeader);
+//
+//            log.info("token={}",token);
+//
+//            jwtTokenProvider.validateToken(jwtTokenProvider.resolveTokenWeb(rawHeader));
+//            String userId = jwtTokenProvider.getUserId(token);
+//
+//            log.info("userId={}",userId);
+//
+//            Member member = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> UserNotFoundException.EXCEPTION);
+//
+//            String roomId = accessor.getFirstNativeHeader(SIMP_DESTINATION);
+////            String destination = Optional.ofNullable(
+////                    (String) message.getHeaders().get(SIMP_DESTINATION)
+////            ).orElse(INVALID_ROOM_ID);
+//
+//            log.info("roomId={}",roomId);
+//
+//            String sessionId = Optional.ofNullable(
+//                    (String) message.getHeaders().get(SIMP_SESSION_ID)
+//            ).orElse(null);
+//
+//            log.info("sessionId={}",sessionId);
+//
+//            //String roomId = chatUtils.getRoodIdFromDestination(destination);
+//
+//
+//
+//            Reservation reservation = reservationRepository.findById(Long.valueOf(roomId)).orElseThrow(() -> UserNotFoundException.EXCEPTION);
+//
+//            if(!participationRepository.existsByReservationAndMember(reservation,member)) {
+//                throw new RuntimeException("참여하지 않은 사람");
+//            }
+//
+//            chatRoomService.enterChatRoom(roomId, sessionId, member.getName());
+//
+//            redisPublisher.publish(topic,
+//                    ChatMessageSaveDto.builder()
+//                            .type(ChatMessageSaveDto.MessageType.ENTER)
+//                            .roomId(roomId)
+//                            .userList(chatRoomService.findUser(roomId, sessionId))
+//                            .build()
+//            );
 
 
         }
@@ -135,44 +135,44 @@ public class StompHandler implements ChannelInterceptor {
         // 소켓 연결 후 ,SUBSCRIBE 등록
         else if (StompCommand.SUBSCRIBE == accessor.getCommand()) {
 
-            String rawHeader = accessor.getFirstNativeHeader(jwtProperties.getHeader());
-
-            String token = jwtTokenProvider.resolveTokenWeb(rawHeader);
-
-            log.info("token={}",token);
-
-            jwtTokenProvider.validateToken(jwtTokenProvider.resolveTokenWeb(rawHeader));
-            String userId = jwtTokenProvider.getUserId(token);
-
-            log.info("userId={}",userId);
-
-            Member member = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> UserNotFoundException.EXCEPTION);
-
-            String destination = Optional.ofNullable(
-                    (String) message.getHeaders().get(SIMP_DESTINATION)
-            ).orElse(INVALID_ROOM_ID);
-
-            String sessionId = Optional.ofNullable(
-                    (String) message.getHeaders().get(SIMP_SESSION_ID)
-            ).orElse(null);
-
-            String roomId = chatUtils.getRoodIdFromDestination(destination);
-
-            Reservation reservation = reservationRepository.findById(Long.valueOf(roomId)).orElseThrow(() -> UserNotFoundException.EXCEPTION);
-
-            if(!participationRepository.existsByReservationAndMember(reservation,member)) {
-                throw new RuntimeException("참여하지 않은 사람");
-            }
-
-            chatRoomService.enterChatRoom(roomId, sessionId, member.getName());
-
-            redisPublisher.publish(topic,
-                    ChatMessageSaveDto.builder()
-                            .type(ChatMessageSaveDto.MessageType.ENTER)
-                            .roomId(roomId)
-                            .userList(chatRoomService.findUser(roomId, sessionId))
-                            .build()
-            );
+//            String rawHeader = accessor.getFirstNativeHeader(jwtProperties.getHeader());
+//
+//            String token = jwtTokenProvider.resolveTokenWeb(rawHeader);
+//
+//            log.info("token={}",token);
+//
+//            jwtTokenProvider.validateToken(jwtTokenProvider.resolveTokenWeb(rawHeader));
+//            String userId = jwtTokenProvider.getUserId(token);
+//
+//            log.info("userId={}",userId);
+//
+//            Member member = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> UserNotFoundException.EXCEPTION);
+//
+//            String destination = Optional.ofNullable(
+//                    (String) message.getHeaders().get(SIMP_DESTINATION)
+//            ).orElse(INVALID_ROOM_ID);
+//
+//            String sessionId = Optional.ofNullable(
+//                    (String) message.getHeaders().get(SIMP_SESSION_ID)
+//            ).orElse(null);
+//
+//            String roomId = chatUtils.getRoodIdFromDestination(destination);
+//
+//            Reservation reservation = reservationRepository.findById(Long.valueOf(roomId)).orElseThrow(() -> UserNotFoundException.EXCEPTION);
+//
+//            if(!participationRepository.existsByReservationAndMember(reservation,member)) {
+//                throw new RuntimeException("참여하지 않은 사람");
+//            }
+//
+//            chatRoomService.enterChatRoom(roomId, sessionId, member.getName());
+//
+//            redisPublisher.publish(topic,
+//                    ChatMessageSaveDto.builder()
+//                            .type(ChatMessageSaveDto.MessageType.ENTER)
+//                            .roomId(roomId)
+//                            .userList(chatRoomService.findUser(roomId, sessionId))
+//                            .build()
+//            );
 
 
         }
@@ -180,39 +180,39 @@ public class StompHandler implements ChannelInterceptor {
         //reids SubScribe 해제
         else if (StompCommand.UNSUBSCRIBE == accessor.getCommand()) {
 
-            String sessionId = Optional.ofNullable(
-                    (String) message.getHeaders().get(SIMP_SESSION_ID)
-            ).orElse(null);
-
-            String roomId = chatRoomService.leaveChatRoom(sessionId);
-
-            redisPublisher.publish(topic,
-                    ChatMessageSaveDto.builder()
-                            .type(ChatMessageSaveDto.MessageType.QUIT)
-                            .roomId(roomId)
-                            .userList(chatRoomService.findUser(roomId, sessionId))
-                            .build()
-            );
+//            String sessionId = Optional.ofNullable(
+//                    (String) message.getHeaders().get(SIMP_SESSION_ID)
+//            ).orElse(null);
+//
+//            String roomId = chatRoomService.leaveChatRoom(sessionId);
+//
+//            redisPublisher.publish(topic,
+//                    ChatMessageSaveDto.builder()
+//                            .type(ChatMessageSaveDto.MessageType.QUIT)
+//                            .roomId(roomId)
+//                            .userList(chatRoomService.findUser(roomId, sessionId))
+//                            .build()
+//            );
         }
 
         //소켓 연결 후 , 소켓 연결 해제 시
         else if (StompCommand.DISCONNECT == accessor.getCommand()) {
 
-            String sessionId = Optional.ofNullable(
-                    (String) message.getHeaders().get(SIMP_SESSION_ID)
-            ).orElse(null);
-
-            log.info("sessionId={}",sessionId);
-
-            String roomId = chatRoomService.disconnectWebsocket(sessionId);
-
-            redisPublisher.publish(topic,
-                    ChatMessageSaveDto.builder()
-                            .type(ChatMessageSaveDto.MessageType.QUIT)
-                            .roomId(roomId)
-                            .userList(chatRoomService.findUser(roomId, sessionId))
-                            .build()
-            );
+//            String sessionId = Optional.ofNullable(
+//                    (String) message.getHeaders().get(SIMP_SESSION_ID)
+//            ).orElse(null);
+//
+//            log.info("sessionId={}",sessionId);
+//
+//            String roomId = chatRoomService.disconnectWebsocket(sessionId);
+//
+//            redisPublisher.publish(topic,
+//                    ChatMessageSaveDto.builder()
+//                            .type(ChatMessageSaveDto.MessageType.QUIT)
+//                            .roomId(roomId)
+//                            .userList(chatRoomService.findUser(roomId, sessionId))
+//                            .build()
+//            );
 
         }
         return message;

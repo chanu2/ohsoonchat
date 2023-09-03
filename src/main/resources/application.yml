@@ -5,9 +5,9 @@ spring:
       port: 6379
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/chatDB
+    url: jdbc:mariadb://database1.cidtckobgf3m.ap-northeast-2.rds.amazonaws.com/chattest
     username: root
-    password: 1234
+    password: cksdl30104
   jpa:
     hibernate:
       ddl-auto: create
